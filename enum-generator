@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+require __DIR__ . '/vendor/autoload.php';
+
+use EnumGenerator\Factory;
+
+if (empty($argv[1])) {
+    fputs(STDERR, "Pass the argument.\n");
+    exit(1);
+}
+
+try {
+    $enum = Factory::create($argv[1]);
+    $enum->generate();
+} catch (Exception $e) {
+    fputs(STDERR, $e->getMessage() . PHP_EOL);
+}

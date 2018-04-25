@@ -1,0 +1,21 @@
+{
+    "name": "genkiroid/enum-generator",
+    "description": "Generate sub class of enum from definition file.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "genkiroid",
+            "email": "gamurai@gmail.com"
+        }
+    ],
+    "require": {
+        "nikic/php-parser": "^3.1",
+        "symfony/yaml": "^3.4"
+    },
+    "autoload": {
+      "psr-4": {
+        "EnumGenerator\\": "src/"
+      }
+    },
+    "bin": ["enum-generator"]
+}
