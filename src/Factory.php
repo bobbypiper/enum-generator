@@ -9,10 +9,6 @@ class Factory
 {
     public function create($filename)
     {
-        if (!file_exists($filename)) {
-            throw new \RuntimeException("File not found.");
-        }
-
         $base = basename($filename);
         $ext = end(explode('.', $base));
 

@@ -14,12 +14,15 @@ class Classes
     {
         $str = '';
         foreach ($this->classes as $class) {
-            $str .= $class->toString();
+            $str .= (string) $class;
         }
         return $str;
     }
 
-    public function toFiles($dirname)
+    public function each()
     {
+        foreach ($this->classes as $class) {
+            yield $class;
+        }
     }
 }

@@ -8,34 +8,39 @@ use PhpParser\Node\Stmt;
 
 class Class_
 {
-    private $class;
-
     private $printer;
 
-    public function __construct($class, $printer)
+    private $name;
+
+    private $nodes;
+
+    public function __construct($name, $enum, $printer)
     {
-        $this->class = $class;
+        $this->name = $name;
         $this->printer = $printer;
+        $this->nodes = $this->createNodes($enum);
     }
 
-    public function toString()
+    public function __toString()
     {
-        return $this->printer->prettyPrintFile($this->nodes()) . PHP_EOL;
+        return $this->printer->prettyPrintFile($this->nodes) . PHP_EOL;
     }
 
-    private function nodes()
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    private function createNodes($value)
     {
         $nodes = [];
 
         $factory = new BuilderFactory();
-        foreach ($this->class as $name => $enums) {
-            foreach ($enums as $const => $value) {
-                $class = $factory->class(str_replace('::', '_', $name) . $this->toCamel($const));
-                $class->extend('Enum');
-                $class = $this->addConst($class, new ConstSet($value));
-                $nodes[] = $class->getNode();
-            }
-        }
+
+        $class = $factory->class($this->name);
+        $class->extend('Enum');
+        $class = $this->addConst($class, new ConstSet($value));
+        $nodes[] = $class->getNode();
 
         return $nodes;
     }
@@ -51,17 +56,11 @@ class Class_
                     $expr = new Node\Scalar\String_($value);
                     break;
                 default:
-                    throw new RuntimeException("Unknown type of $name => $value");
+                    throw new \RuntimeException("Unknown type of $name => $value");
             }
             $const = new Node\Const_(strtoupper($name), $expr);
             $class->addStmt(new Stmt\ClassConst(array($const)));
         }
         return $class;
-    }
-
-    private function toCamel($str)
-    {
-        $str = ucwords($str, '_');
-        return str_replace('_', '', $str);
     }
 }
