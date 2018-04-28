@@ -1,5 +1,7 @@
 # Enum Generator
 
+[![Build Status](https://travis-ci.org/genkiroid/enum-generator.svg?branch=master)](https://travis-ci.org/genkiroid/enum-generator)
+
 Generate PHP class definition that extends Enum class from file(yaml, json).
 
 ## Installation
