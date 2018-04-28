@@ -15,7 +15,7 @@
     },
     "bin": ["enum-generator"],
     "require": {
-        "php": "^7.0",
+        "php": "^7.1",
         "nikic/php-parser": "^4.0",
         "symfony/yaml": "^4.0"
     },
