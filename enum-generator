@@ -46,6 +46,7 @@ try {
         $enum->generate();
     } else {
         $enum->generateFile($outDir, $isForce);
+        echo "The class files was output in [{$outDir}].\n";
     }
 } catch (Exception $e) {
     fputs(STDERR, $e->getMessage() . PHP_EOL);
