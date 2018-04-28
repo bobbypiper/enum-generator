@@ -8,14 +8,18 @@
             "email": "gamurai@gmail.com"
         }
     ],
-    "require": {
-        "nikic/php-parser": "^3.1",
-        "symfony/yaml": "^3.4"
-    },
     "autoload": {
       "psr-4": {
         "EnumGenerator\\": "src/"
       }
     },
-    "bin": ["enum-generator"]
+    "bin": ["enum-generator"],
+    "require": {
+        "php": "^7.0",
+        "nikic/php-parser": "^4.0",
+        "symfony/yaml": "^4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.1"
+    }
 }

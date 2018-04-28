@@ -1,8 +1,7 @@
 <?php
 namespace EnumGenerator;
 
-use EnumGenerator\Parser\YamlParser;
-use EnumGenerator\Parser\JsonParser;
+use EnumGenerator\Parser\{YamlParser, JsonParser};
 use EnumGenerator\EnumGenerator;
 
 class Factory
@@ -10,7 +9,8 @@ class Factory
     public function create($filename)
     {
         $base = basename($filename);
-        $ext = end(explode('.', $base));
+        $split = explode('.', $base);
+        $ext = end($split);
 
         switch ($ext) {
         case 'yaml':

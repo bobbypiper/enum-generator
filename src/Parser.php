@@ -1,8 +1,7 @@
 <?php
 namespace EnumGenerator;
 
-use EnumGenerator\Class_;
-use EnumGenerator\Classes;
+use EnumGenerator\{Class_, Classes};
 use PhpParser\PrettyPrinter;
 
 abstract class Parser

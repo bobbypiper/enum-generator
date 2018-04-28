@@ -2,8 +2,7 @@
 namespace EnumGenerator;
 
 use EnumGenerator\ConstSet;
-use PhpParser\BuilderFactory;
-use PhpParser\Node;
+use PhpParser\{BuilderFactory, Node};
 use PhpParser\Node\Stmt;
 
 class Class_
