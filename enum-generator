@@ -16,17 +16,12 @@ if ($options === false) {
     exit(1);
 }
 
-if (!isset($options['i']) && !isset($options['in'])) {
+$inFile = $options['i'] ?? $options['in'] ?? '';
+if (empty($inFile)) {
     fputs(STDERR, "-i, --in options is required.\n");
     exit(1);
 }
-
-$inFile = isset($options['i']) ? $options['i'] : $options['in'];
-
-$outDir = '';
-if (isset($options['o']) || isset($options['out'])) {
-    $outDir = isset($options['o']) ? $options['o'] : $options['out'];
-}
+$outDir = $options['o'] ?? $options['out'] ?? '';
 
 $isForce = false;
 if (isset($options['f']) || isset($options['force'])) {
