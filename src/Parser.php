@@ -15,7 +15,7 @@ abstract class Parser
 
     abstract function parse();
 
-    public function getClasses()
+    public function getClasses(): Classes
     {
         $parsed = $this->parse();
 

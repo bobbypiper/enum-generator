@@ -10,7 +10,7 @@ class EnumGenerator
         $this->parser = $parser;
     }
 
-    public function getParser()
+    public function getParser(): Parser
     {
         return $this->parser;
     }

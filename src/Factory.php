@@ -6,7 +6,7 @@ use EnumGenerator\EnumGenerator;
 
 class Factory
 {
-    public static function create($filename)
+    public static function create($filename): EnumGenerator
     {
         $base = basename($filename);
         $split = explode('.', $base);

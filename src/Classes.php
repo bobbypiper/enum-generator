@@ -19,7 +19,7 @@ class Classes
         return $str;
     }
 
-    public function each()
+    public function each(): \Generator
     {
         foreach ($this->classes as $class) {
             yield $class;
