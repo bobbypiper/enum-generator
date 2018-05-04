@@ -31,12 +31,12 @@ abstract class Parser
         return new Classes($classes);
     }
 
-    protected function buildClassName($prefix, $name)
+    protected function buildClassName($prefix, $name): string
     {
         return str_replace('::', '_', $prefix) . $this->toCamel($name);
     }
 
-    private function toCamel($str)
+    private function toCamel($str): string
     {
         $str = ucwords($str, '_');
         return str_replace('_', '', $str);

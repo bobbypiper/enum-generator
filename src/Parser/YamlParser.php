@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class YamlParser extends Parser
 {
-    public function parse()
+    public function parse(): \stdClass
     {
         return Yaml::parseFile($this->filename, Yaml::PARSE_CUSTOM_TAGS | Yaml::PARSE_OBJECT_FOR_MAP);
     }

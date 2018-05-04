@@ -2,7 +2,7 @@
 namespace EnumGenerator;
 
 use EnumGenerator\ConstSet;
-use PhpParser\{BuilderFactory, Node};
+use PhpParser\{BuilderFactory, Builder, Node};
 use PhpParser\Node\Stmt;
 
 class Class_
@@ -13,24 +13,24 @@ class Class_
 
     private $nodes;
 
-    public function __construct($name, $enum, $printer)
+    public function __construct(string $name, \stdClass $enum, $printer)
     {
         $this->name = $name;
         $this->printer = $printer;
         $this->nodes = $this->createNodes($enum);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->printer->prettyPrintFile($this->nodes) . PHP_EOL;
     }
 
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    private function createNodes($value)
+    private function createNodes($value): array
     {
         $nodes = [];
 
@@ -44,7 +44,7 @@ class Class_
         return $nodes;
     }
 
-    private function addConst($class, ConstSet $constSet)
+    private function addConst($class, ConstSet $constSet): Builder\Class_
     {
         foreach ($constSet->getValue() as $name => $value) {
             switch (true) {

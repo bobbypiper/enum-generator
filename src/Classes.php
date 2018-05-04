@@ -10,7 +10,7 @@ class Classes
         $this->classes = $classes;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         $str = '';
         foreach ($this->classes as $class) {

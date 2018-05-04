@@ -21,7 +21,7 @@ class EnumGenerator
         echo $classes;
     }
 
-    public function generateFile($dirname, $isForce = false)
+    public function generateFile(string $dirname, bool $isForce = false)
     {
         $this->registerErrorHandler($dirname, $isForce);
 
@@ -35,7 +35,7 @@ class EnumGenerator
         }
     }
 
-    private function registerErrorHandler($dirname, $isForce)
+    private function registerErrorHandler(string $dirname, bool $isForce)
     {
         set_error_handler(function($errno, $errstr, $errfile, $errline) use ($dirname, $isForce) {
             if (is_writable($dirname) && $isForce === true) {
