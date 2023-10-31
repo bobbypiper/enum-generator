@@ -21,19 +21,17 @@ abstract class Parser
 
         $classes = [];
         foreach ($parsed as $class) {
-            foreach ($class as $prefix => $enums) {
-                foreach ($enums as $name => $enum) {
-                    $classes[] = new Class_($this->buildClassName($prefix, $name), $enum, new PrettyPrinter\Standard);
-                }
+            foreach ($class as $name => $enum) {
+                $classes[] = new Class_($this->buildClassName($name), $enum, new PrettyPrinter\Standard);
             }
         }
 
         return new Classes($classes);
     }
 
-    protected function buildClassName($prefix, $name): string
+    protected function buildClassName($name): string
     {
-        return str_replace('::', '_', $prefix) . $this->toCamel($name);
+        return $this->toCamel($name);
     }
 
     private function toCamel($str): string
