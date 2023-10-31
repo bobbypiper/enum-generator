@@ -50,7 +50,7 @@ class Class_
             $namespace = $factory->namespace($namespacePath);
         }
         $enum = $factory
-            ->enum($this->name)
+            ->enum(preg_replace('/[^A-Za-z]/', '', $this->name))
             ->setScalarType('string');
         foreach ($values as $name => $value) {
             if (empty($value)) {
