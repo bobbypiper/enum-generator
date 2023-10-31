@@ -52,13 +52,15 @@ class Class_
         $enum = $factory
             ->enum(preg_replace('/[^A-Za-z]/', '', $this->name))
             ->setScalarType('string');
-        foreach ($values as $name => $value) {
+        foreach ($values as $case => $value) {
             if (empty($value)) {
-                $value = $name;
+                $value = $case;
             }
-            $name = preg_replace('/[^A-Za-z0-9\-_]/', '', str_replace(' ', '_', strtoupper($name)));
+            $case = str_replace(' ', '_', strtoupper($case));
+            $case = str_replace('%', '_percent', $case);
+            $case = preg_replace('/[^A-Za-z0-9\_]/', '', $case);
             $enumCase = $factory
-                ->enumCase($name)
+                ->enumCase($case)
                 ->setValue($value);
             $enum->addStmt($enumCase);
         }
