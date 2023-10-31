@@ -10,7 +10,7 @@ abstract class Parser
 
     public function __construct($filename)
     {
-        $this->filename = $filename;
+        $this->filename = $this->toCamel($filename);
     }
 
     abstract function parse();
@@ -22,16 +22,11 @@ abstract class Parser
         $classes = [];
         foreach ($parsed as $class) {
             foreach ($class as $name => $enum) {
-                $classes[] = new Class_($this->buildClassName($name), $enum, new PrettyPrinter\Standard);
+                $classes[] = new Class_($this->toCamel($name), $enum, new PrettyPrinter\Standard);
             }
         }
 
         return new Classes($classes);
-    }
-
-    protected function buildClassName($name): string
-    {
-        return $this->toCamel($name);
     }
 
     private function toCamel($str): string
