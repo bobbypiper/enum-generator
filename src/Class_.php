@@ -56,8 +56,8 @@ class Class_
             if (empty($value)) {
                 $value = $case;
             }
-            $case = str_replace(' ', '_', strtoupper($case));
             $case = str_replace('%', '_percent', $case);
+            $case = str_replace(' ', '_', strtoupper($case));
             $case = preg_replace('/[^A-Za-z0-9\_]/', '', $case);
             $enumCase = $factory
                 ->enumCase($case)
