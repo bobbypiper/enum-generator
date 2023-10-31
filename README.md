@@ -30,6 +30,12 @@ Generate to files. (Overwrite.)
 enum-generator --in enums.yaml --out /tmp/enums/ --force
 ```
 
+Specify a namespace
+
+```sh
+enum-generator --in enums.yaml --namespace="My/Namespace"
+```
+
 ## Input file format
 
 ### YAML

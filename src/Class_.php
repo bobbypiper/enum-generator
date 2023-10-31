@@ -1,9 +1,10 @@
 <?php
 namespace EnumGenerator;
 
-use EnumGenerator\ConstSet;
-use PhpParser\{BuilderFactory, Builder, Node};
-use PhpParser\Node\Stmt;
+use PhpParser\{BuilderFactory};
+use PhpParser\Node\Attribute;
+use PhpParser\Node\Name;
+use stdClass;
 
 class Class_
 {
@@ -30,36 +31,44 @@ class Class_
         return $this->name;
     }
 
-    private function createNodes($value): array
+    private function getNamespace(): ?string
     {
-        $nodes = [];
-
-        $factory = new BuilderFactory();
-
-        $class = $factory->class($this->name);
-        $class->extend('Enum');
-        $class = $this->addConst($class, new ConstSet($value));
-        $nodes[] = $class->getNode();
-
-        return $nodes;
+        foreach ($_SERVER['argv'] as $arg) {
+            if (str_contains($arg, '--namespace')) {
+                return str_replace('--namespace=', '', $arg);
+            }
+        }
+        return null;
     }
 
-    private function addConst($class, ConstSet $constSet): Builder\Class_
+    private function createNodes(stdClass $values): array
     {
-        foreach ($constSet->getValue() as $name => $value) {
-            switch (true) {
-                case is_int($value):
-                    $expr = new Node\Scalar\LNumber($value);
-                    break;
-                case is_string($value):
-                    $expr = new Node\Scalar\String_($value);
-                    break;
-                default:
-                    throw new \RuntimeException("Unknown type of $name => $value");
-            }
-            $const = new Node\Const_(strtoupper($name), $expr);
-            $class->addStmt(new Stmt\ClassConst(array($const)));
+        $factory = new BuilderFactory();
+        $namespacePath = $this->getNamespace();
+        $hasNamespace = is_null($namespacePath) === false;
+        if ($hasNamespace) {
+            $namespace = $factory->namespace($namespacePath);
         }
-        return $class;
+        $enum = $factory
+            ->enum($this->name)
+            ->setScalarType('string');
+        foreach ($values as $name => $value) {
+            if (empty($value)) {
+                $value = $name;
+            }
+            $name = preg_replace('/[^A-Za-z0-9\-_]/', '', str_replace(' ', '_', strtoupper($name)));
+            $enumCase = $factory
+                ->enumCase($name)
+                ->setValue($value);
+            $enum->addStmt($enumCase);
+        }
+        $element = $enum->getNode();
+        if ($hasNamespace) {
+            $namespace->addStmt($enum);
+            $element = $namespace->getNode();
+        }
+        return [
+            $element,
+        ];
     }
 }
